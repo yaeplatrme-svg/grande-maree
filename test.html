@@ -1,15 +1,19 @@
 <!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Test Kodular</title>
-<style>body{margin:0;background:#0B3A57;color:#fff;font:18px/1.5 sans-serif;padding:24px}b{color:#F5B82E}button{font:inherit;font-weight:bold;padding:14px 18px;border:0;border-radius:12px;background:#F5B82E;color:#0B2530;margin-top:16px;width:100%}li{margin:6px 0}</style></head>
+<style>body{margin:0;background:#0B3A57;color:#fff;font:17px/1.5 sans-serif;padding:20px}b{color:#F5B82E}button{font:inherit;font-weight:bold;padding:14px 18px;border:0;border-radius:12px;background:#F5B82E;color:#0B2530;margin-top:16px;width:100%}li{margin:6px 0}</style></head>
 <body><h1>Test Kodular ✓</h1>
-<p>Si tu lis ceci, le <b>Web Viewer</b> et l'adresse <b>file:///android_asset/</b> fonctionnent.</p>
+<p>Envoie une capture de cet écran à Claude.</p>
 <ul id="r"></ul>
-<button onclick="location.href='grande-maree.html'">Ouvrir Grande Marée</button>
+<button onclick="location.href='index.html?v='+Date.now()">Ouvrir Grande Marée</button>
 <script>
 var r=document.getElementById('r');function add(t){var li=document.createElement('li');li.textContent=t;r.appendChild(li)}
+window.addEventListener('error',function(e){add('ERREUR : '+e.message)});
 add('JavaScript : OK');
-try{localStorage.setItem('t','1');add('Sauvegarde (localStorage) : '+(localStorage.getItem('t')==='1'?'OK':'NON'))}catch(e){add('Sauvegarde (localStorage) : NON')}
-add('Pont Kodular : '+(window.AppInventor||window.Kodular?'OK':'absent'));
-var c=document.createElement('canvas');add('3D (WebGL) : '+((c.getContext('webgl2')||c.getContext('webgl'))?'OK':'NON'));
-var m=navigator.userAgent.match(/Chrome\/(\d+)/);add('Version du moteur : '+(m?m[1]:'?'));
+try{localStorage.setItem('t','1');add('Sauvegarde : '+(localStorage.getItem('t')==='1'?'OK':'NON'))}catch(e){add('Sauvegarde : NON ('+e.message+')')}
+add('Pont Kodular : '+(window.AppInventor?'AppInventor':window.Kodular?'Kodular':'absent'));
+try{var c=document.createElement('canvas');add('3D (WebGL) : '+((c.getContext('webgl2')||c.getContext('webgl'))?'OK':'NON'))}catch(e){add('3D : erreur')}
+var m=navigator.userAgent.match(/Chrome\/([\d.]+)/);add('Moteur : '+(m?m[1]:'?'));
+add('Android : '+((navigator.userAgent.match(/Android [\d.]+/)||['?'])[0]));
+try{new Function('let a={b:1};return a?.b??0')();add('JS moderne : OK')}catch(e){add('JS moderne : NON')}
+add('Écran : '+innerWidth+' × '+innerHeight);
 </script></body></html>
